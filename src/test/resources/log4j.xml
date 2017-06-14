@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<!--
+		<appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="ConsoleAppender" /> </appender>
+		
+		sample pattern pour consoleAppender
+		<param name="ConversionPattern" value="%d{HH:mm:ss,SSS} %-5p %c{2} - %m%n" />		
+	-->
+
+	<!-- The Console Appender  -->
+	<appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="debugfile" class="org.apache.log4j.RollingFileAppender">
+		<param name="maxFileSize" value="100KB" />
+		<param name="maxBackupIndex" value="5" />
+		<param name="File" value="/projects/etl-commons-tools/out/debug.log" />
+		<param name="threshold" value="debug" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %c - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="errorfile" class="org.apache.log4j.RollingFileAppender">
+		<param name="maxFileSize" value="100KB" />
+		<param name="maxBackupIndex" value="5" />
+		<param name="File" value="/projects/etl-commons-tools/out/error.log" />
+		<param name="threshold" value="error" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %c - %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="errorLogger">
+		<level value="error" />
+		<appender-ref ref="errorfile" />
+	</logger>
+
+	<logger name="debugLogger">
+		<level value="debug" />
+		<appender-ref ref="debugfile" />
+	</logger>
+
+	<root>
+		<priority value="debug" />
+		
+<!-- 		<appender-ref ref="debugfile" /> -->
+		
+			<!-- Enlever le commentaire pour faire sortir les messages sur la console	-->
+		<appender-ref ref="ConsoleAppender" />
+					
+			
+	</root>
+</log4j:configuration>
